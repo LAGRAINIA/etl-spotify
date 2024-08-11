@@ -9,7 +9,7 @@ def print_hello():
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2024, 8, 8),  # Correction de 'star_date' en 'start_date'
+    'start_date': datetime(2024, 8, 11),  # Correction de 'star_date' en 'start_date'
     'email': ['anass.lagraini94@gmail.com'],
     'email_on_failure': False,
     'email_on_retry': False,
