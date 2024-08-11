@@ -77,19 +77,14 @@ services:
   # Metabase Service
   metabase:
     image: metabase/metabase:latest
+    container_name: metabase
+    hostname: metabase
+    volumes:
+    - urandom:/dev/random:ro
     ports:
-      - "3000:3000"
-    environment:
-      MB_DB_TYPE: postgres
-      MB_DB_DBNAME: ${POSTGRES_DB}
-      MB_DB_PORT: ${POSTGRES_PORT}
-      MB_DB_USER: ${POSTGRES_USER}
-      MB_DB_PASS: ${POSTGRES_PASSWORD}
-      MB_DB_HOST: ${POSTGRES_HOST}
-
-    depends_on:
-      - warehouse_db
+      - 3000:3000
+    restart: always
 
 volumes:
-  warehouse_data:
-  airflow_db_data:
+  postgres-volume:
+  urandom: 
