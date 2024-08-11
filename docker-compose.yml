@@ -58,7 +58,6 @@ services:
       GUNICORN_CMD_ARGS: "--timeout 300"
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./logs:/opt/airflow/logs/scheduler
     ports:
       - "8080:8080"
     command: "webserver"
@@ -76,7 +75,6 @@ services:
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@airflow-db/airflow"
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./logs:/opt/airflow/logs/scheduler
     command: "scheduler"
 
   # Metabase Service
