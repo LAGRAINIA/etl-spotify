@@ -87,5 +87,5 @@ services:
     restart: always
 
 volumes:
-  postgres-volume:
-  urandom: 
+  warehouse_data:
+  airflow_db_data:
