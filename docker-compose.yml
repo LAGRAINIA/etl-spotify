@@ -13,7 +13,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - warehouse_data:/var/lib/postgresql/data
+      - postgres-volume:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
 
   # Airflow DB for Airflow Metadata
   airflow-db:
