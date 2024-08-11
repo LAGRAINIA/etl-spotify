@@ -2,9 +2,14 @@ FROM python:3
 
 WORKDIR /app
 
-COPY requirements.txt ./
+# Set environment variables
+ENV AIRFLOW_HOME=/opt/airflow
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt /requirements.txt
+
+RUN pip install --no-cache-dir -r /requirements.txt
+
+COPY dags /opt/airflow/dags
 
 COPY . .
 
