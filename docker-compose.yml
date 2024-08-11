@@ -89,3 +89,4 @@ services:
 volumes:
   postgres-volume:
   airflow_db_data:
+  urandom:
