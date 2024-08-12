@@ -5,6 +5,7 @@ from airflow.utils.dates import days_ago
 
 def print_hello():
     print("Hello, Airflow !")
+    print("I finally sucess my first dag !!!!")
 
 default_args = {
     'owner': 'airflow',
