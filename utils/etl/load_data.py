@@ -14,6 +14,6 @@ engine = create_conn()
 
 print(engine)
 
-df = pd.read_sql_query(
-            'SELECT * FROM INFORMATION_SCHEMA.COLUMNS', engine
-        )
+# df = pd.read_sql_query(
+#             'SELECT * FROM INFORMATION_SCHEMA.COLUMNS', engine
+#         )
