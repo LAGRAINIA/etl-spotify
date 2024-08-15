@@ -87,6 +87,6 @@ def extract_data() :
     )
 
     logging.info(song_df)
-    return song_df
+    return song_df.sort_values(by='played_at')
 
-
+print(extract_data())
