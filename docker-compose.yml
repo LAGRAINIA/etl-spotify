@@ -60,6 +60,8 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - airflow-logs:/opt/airflow/logs 
+      - ./.env:/opt/airflow/.env 
+      - ./plugins:/opt/airflow/plugins
     ports:
       - "8080:8080"
     command: "webserver"

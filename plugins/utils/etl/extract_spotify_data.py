@@ -4,10 +4,15 @@ import pandas as pd
 import datetime
 import logging
 from dotenv import load_dotenv
-from tokens.refresh_spotify_token import get_access_token
 import json 
+import os 
+import sys
+
 # Recover env variables 
-load_dotenv()
+load_dotenv(dotenv_path='/opt/airflow/.env')
+# 
+#
+from  utils.etl.refresh_spotify_token import get_access_token
 
 # Database location
 
@@ -88,5 +93,3 @@ def extract_data() :
 
     logging.info(song_df)
     return song_df.sort_values(by='played_at')
-
-print(extract_data())

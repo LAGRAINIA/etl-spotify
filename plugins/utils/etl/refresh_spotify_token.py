@@ -4,7 +4,7 @@ import requests
 from dotenv import load_dotenv
 
 # Load environnement variables 
-load_dotenv()
+load_dotenv(dotenv_path='/opt/airflow/.env')
 
 client_id = os.getenv('SPOTIFY_CLIENT_ID')
 client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
@@ -36,9 +36,11 @@ def refresh_access_token():
 
     r = requests.post(token_url, data=token_data, headers=token_headers)
     response_data = r.json()
-
+    # print(response_data)
+    # Print the response data for debugging
+    print("Response Data:", response_data)
     # Update the global access token and expiration time
-    access_token = response_data["access_token"]
+    access_token = response_data['access_token']
     expires_in = response_data.get("expires_in", 3600)  # Default is 1 hour
     token_expiration_time = time.time() + expires_in
 
@@ -68,7 +70,8 @@ def get_spotify_user_profile():
     r = requests.get(user_profile_url, headers=headers)
     return r.json()
 
-# # Example usage
-# profile = get_spotify_user_profile()
-# print(profile)
-
+# The code below should not execute on import; it should only execute when called by a DAG task
+if __name__ == "__main__":
+    # Example usage
+    profile = get_spotify_user_profile()
+    print(profile)

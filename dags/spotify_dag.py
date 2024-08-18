@@ -1,11 +1,23 @@
 from datetime import timedelta, datetime
-from airflow import DAG
+from airflow import DAG #Type : ignore
 from airflow.operators.python import PythonOperator
-from airflow.utils.dates import days_ago
+import sys
+import os
+from dotenv import load_dotenv
+
+# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
+import sys
+import os
+
+# Add the base directory to sys.path
+# sys.path.insert(0, os.path.abspath('.'))
+from plugins.utils.etl.extract_spotify_data import extract_data
+
 
 def print_hello():
     print("Hello, Airflow !")
     print("I finally sucess my first dag !!!!")
+    #print(extract_data())
 
 default_args = {
     'owner': 'airflow',
