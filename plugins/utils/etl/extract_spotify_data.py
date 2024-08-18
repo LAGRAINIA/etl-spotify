@@ -9,10 +9,11 @@ import os
 import sys
 
 # Recover env variables 
-load_dotenv(dotenv_path='/opt/airflow/.env')
-# 
-#
-from  utils.etl.refresh_spotify_token import get_access_token
+load_dotenv(dotenv_path='/opt/.env')
+#load_dotenv()
+sys.path.append('/workspaces/etl-spotify')
+from  plugins.utils.etl.refresh_spotify_token import get_access_token
+
 
 # Database location
 

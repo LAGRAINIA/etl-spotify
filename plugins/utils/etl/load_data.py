@@ -1,5 +1,5 @@
 import os 
-from database.connection import close_conn, create_conn
+from plugins.utils.etl.database.connection import close_conn, create_conn
 import pandas as pd 
 import logging
 

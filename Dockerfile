@@ -1,24 +1,30 @@
-FROM python:3
+FROM apache/airflow:2.7.3-python3.9
 
-WORKDIR /app
+# Set working direcotry
+WORKDIR /opt/airflow
 
-# Set environment variables
-ENV AIRFLOW_HOME=/opt/airflow
+# Set the PYTHONPATH to include the required directories
+ENV PYTHONPATH "/opt/plugins"
 
-# Install Airflow and other dependencies from requirements.txt
-COPY requirements.txt /requirements.txt
-
-RUN pip install --no-cache-dir -r /requirements.txt
-
-# Create necessary directories and set permissions
-RUN mkdir -p /opt/airflow/logs /opt/airflow/dags && \
-    chmod -R 777 /opt/airflow/logs /opt/airflow/dags
 
 # Copy DAGs and other necessary files
-COPY dags /opt/airflow/dags
-COPY .env /opt/airflow/.env
-COPY plugins /opt/airflow/plugins
-COPY . .
+COPY plugins/ /opt/plugins
+COPY .env /opt/.env
+COPY requirements.txt /opt/requirements.txt
+
+# Change ownership of .spotify_cache to airflow user
+USER root
+RUN chown -R airflow:root /opt/.env
+
+# Grant read and write permissions to the airflow group
+RUN chmod -R 775 /opt/.env
+
+# Switch back to the airflow user for further operations
+USER airflow
+
+# Install requirements
+RUN pip install --no-cache-dir -r /opt/requirements.txt
+
 
 # Set the default command
-CMD ["airflow", "webserver"]
+#CMD ["airflow", "webserver"]

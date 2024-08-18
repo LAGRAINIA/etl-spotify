@@ -40,6 +40,11 @@ services:
     environment:
       AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_SECRET_KEY} 
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@airflow-db/airflow"
+    volumes:
+      - ./airflow:/opt/airflow
+      - airflow-logs:/opt/logs  
+      - ./plugins:/opt/plugins
+      - ./.env:/opt/.env 
     command: "airflow db init"
 
   # Airflow Webserver Service
@@ -58,10 +63,10 @@ services:
       _AIRFLOW_WWW_USER_PASSWORD: "admin"  # Mot de passe
       GUNICORN_CMD_ARGS: "--timeout 300"
     volumes:
-      - ./dags:/opt/airflow/dags
-      - airflow-logs:/opt/airflow/logs 
-      - ./.env:/opt/airflow/.env 
-      - ./plugins:/opt/airflow/plugins
+      - ./airflow:/opt/airflow
+      - airflow-logs:/opt/logs  
+      - ./plugins:/opt/plugins
+      - ./.env:/opt/.env 
     ports:
       - "8080:8080"
     command: "webserver"
@@ -77,8 +82,11 @@ services:
       AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@airflow-db/airflow"
     volumes:
-      - ./dags:/opt/airflow/dags
-      - airflow-logs:/opt/airflow/logs
+      - ./airflow:/opt/airflow
+      - airflow-logs:/opt/logs  
+      - ./plugins:/opt/plugins
+      - ./.env:/opt/.env 
+
     command: "scheduler"
 
   # Metabase Service
