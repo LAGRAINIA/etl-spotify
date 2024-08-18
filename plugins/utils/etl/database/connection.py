@@ -1,8 +1,10 @@
 import logging
-
+import sys
+sys.path.append('/workspaces/etl-spotify')
 from sqlalchemy import create_engine
-from database.db import WarehouseConnection
-from database.sde_config import get_warehouse_creds
+from plugins.utils.etl.database.db import WarehouseConnection
+from plugins.utils.etl.database.sde_config import get_warehouse_creds
+import psycopg2
 
 logging.basicConfig(
     level=logging.INFO,
@@ -11,7 +13,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-
+print(get_warehouse_creds())
 def create_conn(
     connection_string=WarehouseConnection(
         get_warehouse_creds()
@@ -30,3 +32,6 @@ def create_conn(
 def close_conn(engine):
     # close the connection
     engine.dispose()
+
+
+print(create_conn())
